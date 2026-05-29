@@ -1,20 +1,16 @@
 import streamlit as st
 import pandas as pd
 import gspread
+import json
 
 # 1. Konfiguration
 st.set_page_config(page_title="WOBmap", layout="wide")
 st.title("🐺 sagenumWOBen - Geschichten & Stories von Fans des VfL Wolfsburg")
 
 def get_google_sheet():
-    if "gcp_service_account" in st.secrets:
-        # Hier erzwingen wir die Umwandlung in ein Dictionary
-        creds_dict = dict(st.secrets["gcp_service_account"])
-        
-        # WICHTIG: Manchmal müssen die \n Zeichen explizit ersetzt werden, 
-        # falls die Secrets sie verschlucken:
-        creds_dict['private_key'] = creds_dict['private_key'].replace('\\n', '\n')
-        
+    if "GCP_JSON" in st.secrets:
+        # Hier wird der JSON-String sicher in ein Dictionary umgewandelt
+        creds_dict = json.loads(st.secrets["GCP_JSON"])
         gc = gspread.service_account_from_dict(creds_dict)
     else:
         gc = gspread.service_account(filename='credentials.json')
