@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import gspread
 import json
+import base64
 
 # 1. Konfiguration
 st.set_page_config(page_title="WOBmap", layout="wide")
