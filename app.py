@@ -4,7 +4,7 @@ import gspread
 
 # 1. Konfiguration
 st.set_page_config(page_title="WOBmap", layout="wide")
-st.title("🐺 WOBmap - Fan-Storys")
+st.title("🐺 sagenumWOBen - Geschichten & Stories von Fans des VfL Wolfsburg")
 
 # 2. Verbindung zu Google Sheets
 def get_google_sheet():
