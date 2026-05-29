@@ -21,7 +21,7 @@ def get_landkreis_liste():
 # 4. Sidebar Eingabemaske
 with st.sidebar:
     st.header("Dein Steckbrief")
-    with st.form("wob_form"):
+    with st.form("wob_form"):  # <--- Start des Formulars
         name = st.text_input("Name")
         kreis = st.selectbox("Landkreis", get_landkreis_liste())
         alter = st.number_input("Alter", 1, 100)
@@ -30,9 +30,9 @@ with st.sidebar:
         lieblings_spieler = st.text_input("Lieblings-Spieler*in")
         lieblings_klischee = st.text_input("Lieblings-Klischee")
         geschichte = st.text_area("Was verbindet dich mit dem VfL?")
+        submit = st.form_submit_button("Story abschicken") 
         
-        if st.form_submit_button("Story abschicken"):
+        if submit:
             sheet = get_google_sheet()
-            # Reihenfolge angepasst an: Name, Landkreis, Alter, Fan_seit, Erstes_Spiel, Lieblings_Spieler*in, Lieblings_Klischee, Geschichte
             sheet.append_row([name, kreis, alter, fan_seit, erstes_spiel, lieblings_spieler, lieblings_klischee, geschichte])
             st.success("Danke für deine grün-weiße Story!")
