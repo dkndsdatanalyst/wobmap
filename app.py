@@ -8,21 +8,25 @@ st.set_page_config(page_title="WOBmap", layout="wide")
 st.title("🐺 sagenumWOBen - Geschichten & Stories von Fans des VfL Wolfsburg")
 
 def get_google_sheet():
+    # Wir laden die Daten direkt aus den Secrets
     if "PRIVATE_KEY" in st.secrets:
-        # Hier bauen wir das Dictionary manuell zusammen
+        # Hier bauen wir das Dictionary zusammen
+        # WICHTIG: Wir nutzen den Schlüssel genau so, wie er im Secret steht
         creds_dict = {
             "type": st.secrets["TYPE"],
             "project_id": st.secrets["PROJECT_ID"],
             "private_key_id": "8c5144ea1858e81d1b65cae0120d629f2a294444",
-            "private_key": st.secrets["PRIVATE_KEY"].replace("\\n", "\n"),
+            "private_key": st.secrets["PRIVATE_KEY"], # Keine replace() Funktion hier!
             "client_email": st.secrets["CLIENT_EMAIL"],
             "token_uri": st.secrets["TOKEN_URI"],
         }
         gc = gspread.service_account_from_dict(creds_dict)
     else:
+        # Lokaler Fall
         gc = gspread.service_account(filename='credentials.json')
     
-    return gc.open("WOBmap_Data").get_worksheet(0)
+    # Zugriff auf dein spezifisches Blatt
+    return gc.open("WOBmap_Data").worksheet("Tabellenblatt1")
 
 # 3. Hilfsfunktion für Landkreise
 @st.cache_data
