@@ -11,7 +11,7 @@ def get_google_sheet():
     # Lädt die credentials.json aus deinem Ordner
     gc = gspread.service_account(filename='credentials.json')
     # Öffnet das Sheet WOBmap_Data
-    return gc.open("WOBmap_Data").sheet1
+    return gc.open("WOBmap_Data").Tabellenblatt1
 
 # 3. Hilfsfunktion für Landkreise
 @st.cache_data
