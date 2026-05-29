@@ -6,15 +6,17 @@ import gspread
 st.set_page_config(page_title="WOBmap", layout="wide")
 st.title("🐺 sagenumWOBen - Geschichten & Stories von Fans des VfL Wolfsburg")
 
-# 2. Verbindung zu Google Sheets
 def get_google_sheet():
-    # Prüfe, ob wir in der Streamlit Cloud sind (dort gibt es st.secrets)
     if "gcp_service_account" in st.secrets:
-        # Lade die Daten aus den Secrets (TOML-Format)
-        creds = dict(st.secrets["gcp_service_account"])
-        gc = gspread.service_account_from_dict(creds)
+        # Hier erzwingen wir die Umwandlung in ein Dictionary
+        creds_dict = dict(st.secrets["gcp_service_account"])
+        
+        # WICHTIG: Manchmal müssen die \n Zeichen explizit ersetzt werden, 
+        # falls die Secrets sie verschlucken:
+        creds_dict['private_key'] = creds_dict['private_key'].replace('\\n', '\n')
+        
+        gc = gspread.service_account_from_dict(creds_dict)
     else:
-        # Lokaler Fall: Suche die Datei auf deinem PC
         gc = gspread.service_account(filename='credentials.json')
     
     return gc.open("WOBmap_Data").sheet1
