@@ -30,9 +30,9 @@ with st.sidebar:
         lieblings_spieler = st.text_input("Lieblings-Spieler*in")
         lieblings_klischee = st.text_input("Lieblings-Klischee")
         geschichte = st.text_area("Was verbindet dich mit dem VfL?")
-        submit = st.form_submit_button("Story abschicken") 
+        submitted = st.form_submit_button("Story abschicken")
         
-        if submit:
+        if submitted:
             sheet = get_google_sheet()
             sheet.append_row([name, kreis, alter, fan_seit, erstes_spiel, lieblings_spieler, lieblings_klischee, geschichte])
-            st.success("Danke für deine grün-weiße Story!")
+            st.success("Danke für deine Story!")
