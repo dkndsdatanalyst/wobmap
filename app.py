@@ -16,7 +16,8 @@ def get_google_sheet():
 # 3. Hilfsfunktion für Landkreise
 @st.cache_data
 def get_landkreis_liste():
-    return pd.read_csv('landkreise.csv')['landkreis'].tolist()
+    # Test-Liste statt CSV-Zugriff
+    return ["Wolfsburg", "Göttingen", "Hannover"]
 
 # 4. Sidebar Eingabemaske
 with st.sidebar:
